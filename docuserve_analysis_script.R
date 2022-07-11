@@ -7,7 +7,7 @@ library("tidyverse")
 # place excel files for analysis in the /data/ folder
 
 # Imports XLSX file into dataframe:
-docuserve_data_all <- read_xlsx("./data/2021_docuserve_borrowing_requests.xlsx")
+docuserve_data_all <- read_xlsx("./data/2020_docuserve_borrowing_requests.xlsx")
 
 # Filters for the selected columns:
 docuserve_data_filtered <- select(docuserve_data_all, `Request Type`, 
@@ -40,10 +40,15 @@ docuserve_articles$`Photo Journal Title` <-
 docuserve_articles$`Photo Journal Title` <- 
   gsub('the ', '', docuserve_articles$`Photo Journal Title`)
 
-# extract Journal titles:
+# extract Journal titles and arrange by number:
 journal_count <- docuserve_articles %>%
-  count(`Photo Journal Title`)
+  count(`Photo Journal Title`, sort = TRUE)
 
 # alphabetical order
 journal_abc <- journal_count[order(journal_count$`Photo Journal Title`),]
+
+# export to csv files
+write_csv(journal_abc, file = "./data/2020_docuserve_borrowing_journal_abc.csv")
+write_csv(journal_count, file = "./data/2020_docuserve_borrowing_journal_count.csv")
+
 
