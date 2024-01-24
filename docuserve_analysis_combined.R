@@ -58,10 +58,6 @@ docuserve_data_filtered$`Photo Journal Title` <-
 docuserve_data_filtered$`Photo Journal Title` <- 
   gsub("(?i)\\b[trans]\\b", "transactions", docuserve_data_filtered$`Photo Journal Title`)
 
-# regex to replace "appl" with "applied"
-docuserve_data_filtered$`Photo Journal Title` <- 
-  gsub("(?i)\\b[appl]\\b", "applied", docuserve_data_filtered$`Photo Journal Title`)
-
 # regex to replace "spectrocsopy" with "spectroscopy"
 docuserve_data_filtered$`Photo Journal Title` <- 
   gsub("(?i)\\b[spectrocsopy]\\b", "spectroscopy", docuserve_data_filtered$`Photo Journal Title`)
@@ -88,3 +84,6 @@ docuserve_article_doi_journal_count <- docuserve_data_article_doi %>%
 
 # alphabetical order
 docuserve_article_doi_journal_abc <- docuserve_article_doi_journal_count[order(docuserve_article_doi_journal_count$`Photo Journal Title`),]
+
+# export to csv files
+write_csv(docuserve_article_doi_journal_abc, file = "./data/2023_docuserve_article_doi_journal_abc.csv")
