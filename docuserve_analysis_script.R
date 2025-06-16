@@ -6,9 +6,9 @@ library("readxl")
 library("tidyverse")
 # place excel files for analysis in the /data/ folder
 
-# Imports XLSX file into dataframe:
-docuserve_data_docdel <- read_xlsx("./data/2023_docuserve_docdel_requests.xlsx")
-docuserve_data_borrowing <- read_xlsx("./data/2023_docuserve_borrowing_requests.xlsx")
+# Imports XLSX file into dataframe. Change the names of the files as needed:
+docuserve_data_docdel <- read_xlsx("./data/docuserve borrowing requests jan-march 2025.xlsx")
+docuserve_data_borrowing <- read_xlsx("./data/docuserve borrowing requests jan-march 2025.xlsx")
 
 # Filter docdel data for the selected columns:
 docdel_filtered <- select(docuserve_data_docdel, `Request Type`, `Loan Author`, `Loan Title`, `Loan Publisher`, `Loan Date`, `Loan Edition`, `Photo Journal Title`, 
@@ -113,7 +113,7 @@ borrowing_articles_journal_count <- borrowing_articles %>%
   count(`Photo Journal Title`, sort = TRUE)
 
 # alphabetical order
-# journal_abc <- journal_count[order(journal_count$`Photo Journal Title`),]
+borrowing_articles_journal_abc <- borrowing_articles_journal_count[order(borrowing_articles_journal_count$`Photo Journal Title`),]
 
 # export to csv files
 # write_csv(journal_abc, file = "./data/2023_docuserve_doc_del_journal_abc.csv")
