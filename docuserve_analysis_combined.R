@@ -68,7 +68,11 @@ docuserve_data_filtered$`Photo Journal Title` <-
 
 # regex to replace "nat" with "nature"
 docuserve_data_filtered$`Photo Journal Title` <- 
-  gsub("(?i)\\b[lett]\\b", "letters", docuserve_data_filtered$`Photo Journal Title`)
+  gsub("(?i)\\b[nat]\\b", "nature", docuserve_data_filtered$`Photo Journal Title`)
+
+# regex to replace "neurosciene" with "neuroscience"
+docuserve_data_filtered$`Photo Journal Title` <-
+  gsub("(?i)\\b[neurosciene]\\b", "neuroscience", docuserve_data_filtered$`Photo Journal Title`)
 
 # extract Document Type and arrange by number:
 document_types_total <- docuserve_data_filtered %>%
