@@ -7,8 +7,11 @@ library("tidyverse")
 # place excel files for analysis in the /data/ folder
 
 # Imports XLSX file into dataframe:
-docuserve_data_docdel <- read_xlsx("./data/2023_docuserve_docdel_requests.xlsx")
-docuserve_data_borrowing <- read_xlsx("./data/2023_docuserve_borrowing_requests.xlsx")
+# updated 2025-07-09 by PJ to take filepaths from prompts to user
+# docuserve_data_docdel <- read_xlsx("./data/2023_docuserve_docdel_requests.xlsx")
+docuserve_data_docdel <- read_xlsx(readline(prompt="Enter the path of the document delivery .xlsx file to import: "))
+# docuserve_data_borrowing <- read_xlsx("./data/2023_docuserve_borrowing_requests.xlsx")
+docuserve_data_borrowing <- read_xlsx(readline(prompt="Enter the path of the borrowing .xlsx file to import: "))
 
 # append docuserve_data_borrowing to docuserve_data_docdel
 docuserve_data <- bind_rows(docuserve_data_docdel, docuserve_data_borrowing)
@@ -77,6 +80,12 @@ docuserve_data_filtered$`Photo Journal Title` <-
 # extract Document Type and arrange by number:
 document_types_total <- docuserve_data_filtered %>%
   count(`Document Type`, sort = TRUE)
+
+# extract combinations of process/request/document type and arrange by frequency
+request_type_freq <- docuserve_data %>% 
+  group_by(`Process Type`, `Request Type`, `Document Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
 
 # extract Article and DOI document types
 docuserve_data_article_doi <- docuserve_data_filtered %>%
