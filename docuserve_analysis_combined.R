@@ -99,4 +99,5 @@ docuserve_article_doi_journal_count <- docuserve_data_article_doi %>%
 docuserve_article_doi_journal_abc <- docuserve_article_doi_journal_count[order(docuserve_article_doi_journal_count$`Photo Journal Title`),]
 
 # export to csv files
-write_csv(docuserve_article_doi_journal_abc, file = "./data/2023_docuserve_article_doi_journal_abc.csv")
+# write_csv(docuserve_article_doi_journal_abc, file = "./data/2023_docuserve_article_doi_journal_abc.csv")
+write_csv(docuserve_article_doi_journal_abc, file = readline(prompt="Enter the path and name of the exported journal title csv file: "))
