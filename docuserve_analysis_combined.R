@@ -26,6 +26,10 @@ docuserve_data_filtered <- select(docuserve_data, `Request Type`, `Loan Author`,
 docuserve_data_filtered$`Photo Journal Title` <- 
   tolower(docuserve_data_filtered$`Photo Journal Title`)
 
+# regex to replace line breaks and carriage returns in journal titles with a space
+docuserve_data_filtered$`Photo Journal Title` <-
+  gsub("\r?\n|\r", " ", docuserve_data_filtered$`Photo Journal Title`)
+
 # regex to get rid of trailing period or comma in journal title
 docuserve_data_filtered$`Photo Journal Title` <- 
   gsub('^\\.|\\.$', '', docuserve_data_filtered$`Photo Journal Title`)
@@ -50,13 +54,13 @@ docuserve_data_filtered$`Photo Journal Title` <-
 docuserve_data_filtered$`Photo Journal Title` <- 
   gsub('ü', 'u', docuserve_data_filtered$`Photo Journal Title`)
 
-# regex to replace ampersand with "and"
-docuserve_data_filtered$`Photo Journal Title` <- 
-  gsub("(?i)\\b[&]\\b", 'and', docuserve_data_filtered$`Photo Journal Title`)
-
 # regex to replace "&amp;" with "and"
 docuserve_data_filtered$`Photo Journal Title` <- 
   gsub('&amp;', 'and', docuserve_data_filtered$`Photo Journal Title`)
+
+# regex to replace ampersand with "and"
+docuserve_data_filtered$`Photo Journal Title` <- 
+  gsub('&', 'and', docuserve_data_filtered$`Photo Journal Title`)
 
 # regex to replace "j" with "journal"
 docuserve_data_filtered$`Photo Journal Title` <- 
