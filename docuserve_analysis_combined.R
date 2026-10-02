@@ -8,10 +8,11 @@ library("tidyverse")
 
 # Imports XLSX file into dataframe:
 # updated 2025-07-09 by PJ to take filepaths from prompts to user
-# docuserve_data_docdel <- read_xlsx("./data/2023_docuserve_docdel_requests.xlsx")
-docuserve_data_docdel <- read_xlsx(readline(prompt="Enter the path of the document delivery .xlsx file to import: "))
-# docuserve_data_borrowing <- read_xlsx("./data/2023_docuserve_borrowing_requests.xlsx")
-docuserve_data_borrowing <- read_xlsx(readline(prompt="Enter the path of the borrowing .xlsx file to import: "))
+# updated 2026-10-01 by DW to remove extra comments and make path command explicit
+
+docuserve_data_docdel <- read_xlsx(readline(prompt="Enter path and filename of document delivery .xlsx file to import (./data/filename.xlsx): "))
+
+docuserve_data_borrowing <- read_xlsx(readline(prompt="Enter path and filename of borrowing .xlsx file to import (./data/filename.xlsx): "))
 
 # append docuserve_data_borrowing to docuserve_data_docdel
 docuserve_data <- bind_rows(docuserve_data_docdel, docuserve_data_borrowing)
@@ -51,7 +52,11 @@ docuserve_data_filtered$`Photo Journal Title` <-
 
 # regex to replace ampersand with "and"
 docuserve_data_filtered$`Photo Journal Title` <- 
-  gsub('&', 'and', docuserve_data_filtered$`Photo Journal Title`)
+  gsub("(?i)\\b[&]\\b", 'and', docuserve_data_filtered$`Photo Journal Title`)
+
+# regex to replace "&amp;" with "and"
+docuserve_data_filtered$`Photo Journal Title` <- 
+  gsub('&amp;', 'and', docuserve_data_filtered$`Photo Journal Title`)
 
 # regex to replace "j" with "journal"
 docuserve_data_filtered$`Photo Journal Title` <- 
